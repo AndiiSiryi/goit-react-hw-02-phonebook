@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import css from './ContactForm.module.css';
-
+import PropTypes from 'prop-types'
 
 export class ContactForm extends Component{
     state = {
@@ -18,7 +18,7 @@ export class ContactForm extends Component{
     return phoneRegex.test(number);
   }
 
-    handelChange = (e) => {
+    handleChange = (e) => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
     };
@@ -32,7 +32,7 @@ export class ContactForm extends Component{
     }
 
     if (!this.validateNumber(number)) {
-      alert('Please enter a valid phone number (7 digits only).');
+      alert('The phone number must contain only 7 digits, example: XXXXXXX or XXX-XX-XX.');
       return;
     }
         this.props.handleFormSubmit(name, number);
@@ -52,7 +52,7 @@ export class ContactForm extends Component{
                         // title="Name may contain only letters, apostrophe, dash and spaces"
                         name="name"
                         value={name}
-                        onChange={this.handelChange}
+                        onChange={this.handleChange}
                         required />
                 </label>
                 <label className={css.label}>Phone Number:
@@ -62,7 +62,7 @@ export class ContactForm extends Component{
                         //  title="The phone number must contain only 7 digits, example: XXXXXXX or XXX-XX-XX."
                         name="number"
                         value={number}
-                        onChange={this.handelChange}
+                        onChange={this.handleChange}
                         required />
                 </label>
                 <button className={css.button} type="submit">
@@ -72,3 +72,6 @@ export class ContactForm extends Component{
     }
 };
 
+ContactForm.propTypes = {
+  handleFormSubmit: PropTypes.func.isRequired,
+};
